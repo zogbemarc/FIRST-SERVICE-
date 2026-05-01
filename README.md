@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # FIRST SERVICE – Site vitrine
 
 Ce projet est un site vitrine pour **FIRST SERVICE**, une entreprise spécialisée dans :
@@ -132,3 +133,7 @@ create policy "Messages admin read" on messages for select
 - Simple à comprendre
 - Facile à modifier
 - Design professionnel et responsive
+=======
+# FIRST-SERVICE-
+FIRST SERVICE une entreprise spécialisée dans : - Avitaillement maritime - Soutage - Vente de produits divers
+>>>>>>> d3a2354c72a411c11d9d6d5966cdc3ccfe54a579
