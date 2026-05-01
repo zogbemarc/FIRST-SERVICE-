@@ -1,10 +1,14 @@
-<<<<<<< HEAD
 # FIRST SERVICE – Site vitrine
 
 Ce projet est un site vitrine pour **FIRST SERVICE**, une entreprise spécialisée dans :
 - Avitaillement maritime
 - Soutage
 - Vente de produits divers
+
+---
+
+## 📝 Présentation du Projet
+Une documentation détaillée pour la présentation (jury/professeur) est disponible ici : [PRESENTATION.md](./PRESENTATION.md)
 
 ---
 
@@ -36,6 +40,8 @@ first-service/
 ├── produits.html
 ├── contact.html
 ├── admin.html
+├── mentions.html
+├── privacy.html
 └── README.md
 ```
 
@@ -45,6 +51,8 @@ first-service/
 - `produits.html` : catalogue des produits
 - `contact.html` : formulaire de contact
 - `admin.html` : espace d’administration
+- `mentions.html` : mentions légales
+- `privacy.html` : politique de confidentialité
 
 ### Dossiers JS
 - `config/` : configuration Supabase (`supabase.js`)
@@ -69,15 +77,9 @@ first-service/
   - `messages` : id, nom, email, message  
   - `users` : id, email, role (admin, client)
 - Renseigner `SUPABASE_URL` et `SUPABASE_ANON_KEY` dans `js/config/supabase.js`
-  ou définir, avant `js/utils/init.js`, un petit script non versionné :
-  ```html
-  <script>
-    window.__SUPABASE_URL = "https://votre-projet.supabase.co";
-    window.__SUPABASE_ANON_KEY = "ey...";
-  </script>
-  ```
+  ou définir, avant `js/utils/init.js`, un script non versionné.
 
-### SQL de base (à exécuter dans le SQL Editor Supabase)
+### SQL de base
 ```sql
 create table if not exists produits (
   id bigint generated always as identity primary key,
@@ -87,45 +89,7 @@ create table if not exists produits (
   image text,
   created_at timestamp with time zone default now()
 );
-
-create table if not exists messages (
-  id bigint generated always as identity primary key,
-  nom text not null,
-  email text not null,
-  message text not null,
-  created_at timestamp with time zone default now()
-);
-
-create table if not exists users (
-  id uuid primary key references auth.users,
-  email text unique,
-  role text default 'client'
-);
 ```
-
-Politiques RLS minimales (adapter à vos besoins) :
-```sql
-alter table produits enable row level security;
-alter table messages enable row level security;
-alter table users enable row level security;
-
--- Produits : lecture publique, écriture réservée aux admins
-create policy "Produits lecture publique" on produits for select using (true);
-create policy "Produits admins" on produits for all
-  using (auth.jwt() ->> 'email') in (select email from users where role = 'admin');
-
--- Messages : insertion ouverte, lecture admin
-create policy "Messages insert" on messages for insert with check (true);
-create policy "Messages admin read" on messages for select
-  using (auth.jwt() ->> 'email') in (select email from users where role = 'admin');
-```
-
----
-
-## 🤝 Collaboration
-- Chaque page HTML a son JS dédié dans `js/pages/`.
-- Les données passent par `js/api/`, l’affichage dynamique par `js/ui/`.
-- Le style global est dans `css/style.css`.
 
 ---
 
@@ -133,7 +97,4 @@ create policy "Messages admin read" on messages for select
 - Simple à comprendre
 - Facile à modifier
 - Design professionnel et responsive
-=======
-# FIRST-SERVICE-
-FIRST SERVICE une entreprise spécialisée dans : - Avitaillement maritime - Soutage - Vente de produits divers
->>>>>>> d3a2354c72a411c11d9d6d5966cdc3ccfe54a579
+
