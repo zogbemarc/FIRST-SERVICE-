@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration | FIRST SERVICE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .admin-card {
+      border: 0;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      background: white;
+    }
+    .table-responsive {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .nav-tabs .nav-link {
+      border: 0;
+      border-bottom: 3px solid transparent;
+      color: var(--navy-600);
+      font-weight: 600;
+      padding: 1rem 1.5rem;
+    }
+    .nav-tabs .nav-link.active {
+      background: transparent;
+      border-color: var(--orange-500);
+      color: var(--navy-900);
+    }
+  </style>
+</head>
+<body data-page="admin" class="bg-light">
+  <header class="topbar text-white py-2">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center small">
+      <span><i class="bi bi-clock-history me-2"></i>Support 24/7 - Réactivité opérationnelle</span>
+      <span class="d-flex gap-3">
+        <span><i class="bi bi-telephone-outbound me-1"></i>+225 00 00 00 00 00</span>
+        <span><i class="bi bi-envelope me-1"></i>contact@firstservice.ci</span>
+      </span>
+    </div>
+  </header>
+
+  <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-uppercase letter-space" href="index.html">
+        <img src="images/logo/logo-FIRST-SERVICE.png" alt="Logo FIRST SERVICE" style="height:50px;">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" data-page="home" href="index.html">Accueil</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="services" href="services.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="produits" href="produits.html">Produits</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="contact" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="admin" href="admin.html">Admin</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="py-5">
+    <div class="container">
+      <div class="row mb-5 text-center">
+        <div class="col-12">
+          <p class="eyebrow text-uppercase text-primary">Gestion Sécurisée</p>
+          <h2 class="fw-bold display-6">Espace Administration</h2>
+        </div>
+      </div>
+
+      <!-- Connexion -->
+      <div id="loginRow" class="row justify-content-center">
+        <div class="col-md-5">
+          <div class="card admin-card p-4 p-md-5 reveal">
+            <h4 class="fw-bold mb-4 text-center">Accès Réservé</h4>
+            <form id="loginForm">
+              <div class="mb-3">
+                <label for="loginEmail" class="form-label small fw-bold">Email</label>
+                <input type="email" class="form-control" id="loginEmail" placeholder="admin@firstservice.ci" required>
+              </div>
+              <div class="mb-4">
+                <label for="loginPassword" class="form-label small fw-bold">Mot de passe</label>
+                <input type="password" class="form-control" id="loginPassword" required>
+              </div>
+              <div id="loginAlert" class="alert d-none" role="alert"></div>
+              <button class="btn btn-marine w-100 py-2 btn-animate" type="submit">Se connecter</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panneaux Admin -->
+      <div id="adminPanels" class="d-none reveal">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div class="d-flex align-items-center gap-3">
+            <div class="badge bg-primary px-3 py-2">Session Active</div>
+            <span id="adminUser" class="fw-bold text-navy-900"></span>
+          </div>
+          <button class="btn btn-outline-danger btn-sm px-3" id="logoutBtn">Déconnexion</button>
+        </div>
+
+        <div class="row g-4">
+          <!-- Formulaire Produit -->
+          <div class="col-lg-4">
+            <div class="card admin-card p-4">
+              <h5 class="fw-bold mb-4" id="formTitle">Ajouter / Modifier un produit</h5>
+              <form id="productForm">
+                <input type="hidden" id="productId">
+                <div class="mb-3">
+                  <label for="productName" class="form-label small fw-bold">Nom du produit</label>
+                  <input type="text" class="form-control" id="productName" placeholder="ex: Corde Marine" required>
+                </div>
+                <div class="mb-3">
+                  <label for="productDescription" class="form-label small fw-bold">Description</label>
+                  <textarea class="form-control" id="productDescription" rows="3" placeholder="Détails techniques..." required></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="productPrice" class="form-label small fw-bold">Prix (FCFA)</label>
+                  <input type="number" class="form-control" id="productPrice" placeholder="ex: 15000" required>
+                </div>
+                <div class="mb-4">
+                  <label for="productImageFile" class="form-label small fw-bold">Image du produit (Upload)</label>
+                  <input type="file" class="form-control" id="productImageFile" accept="image/*">
+                  <input type="hidden" id="productImage" value="">
+                  <small class="text-muted mt-1 d-block">Laissez vide pour utiliser l'image par défaut.</small>
+                </div>
+                <div id="productAlert" class="alert d-none" role="alert"></div>
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-marine btn-animate">Enregistrer</button>
+                  <button type="button" class="btn btn-light" id="resetProductForm">Annuler</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Listes -->
+          <div class="col-lg-8">
+            <ul class="nav nav-tabs mb-4" id="adminTabs">
+              <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabProducts">Catalogue</button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabMessages">Messages</button>
+              </li>
+            </ul>
+
+            <div class="tab-content">
+              <!-- Tab Produits -->
+              <div class="tab-pane fade show active" id="tabProducts">
+                <div class="card admin-card p-4">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="fw-bold mb-0">Gestion du catalogue</h6>
+                    <input type="search" id="productSearch" class="form-control form-control-sm w-auto" placeholder="Rechercher...">
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table align-middle table-hover" id="adminProductsTable">
+                      <thead class="table-light">
+                        <tr>
+                          <th>Produit</th>
+                          <th>Prix</th>
+                          <th class="text-end">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr><td colspan="3" class="text-center py-4">Chargement...</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab Messages -->
+              <div class="tab-pane fade" id="tabMessages">
+                <div class="card admin-card p-4">
+                  <h6 class="fw-bold mb-3">Messages Reçus</h6>
+                  <div class="table-responsive">
+                    <table class="table align-middle table-hover" id="messagesTable">
+                      <thead class="table-light">
+                        <tr>
+                          <th>Expéditeur</th>
+                          <th>Message</th>
+                          <th>Date</th>
+                        </tr>
+                      </thead>
+                      <tbody id="messagesList">
+                        <tr><td colspan="3" class="text-center py-4">Chargement...</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer text-white py-5 mt-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4 text-center text-md-start">
+          <h4 class="fw-bold mb-3">FIRST SERVICE</h4>
+          <p class="text-white-50">L'excellence maritime au Port d'Abidjan. Votre partenaire stratégique.</p>
+        </div>
+        <div class="col-lg-4 text-center">
+          <h5 class="fw-bold mb-3">Contact</h5>
+          <p class="text-white-50 mb-1">+225 00 00 00 00 00</p>
+          <p class="text-white-50">contact@firstservice.ci</p>
+        </div>
+        <div class="col-lg-4 text-center text-md-end">
+          <small class="text-white-50">© 2026 First Service — Tous droits réservés</small>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer"></div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="js/utils/init.js"></script>
+</body>
+</html>
