@@ -16,22 +16,22 @@ export function init() {
     const message = qs("#contactMessage").value.trim();
     const honeypot = qs("#contactWebsite")?.value.trim();
 
-    // Anti-spam léger : honeypot + délai minimal 3s bkjebcjkenbkjlzcn
+    // Anti-spam léger : honeypot + délai minimal 3s
     if (honeypot) {
       showAlert(alertEl, "Requête bloquée.", "danger");
       return;
     }
     if (performance.now() - loadTime < 3000) {
-      showAlert(alertEl, "Me    rci de patienter quelques secondes avant d'envoyer.", "warning");
+      showAlert(alertEl, "Merci de patienter quelques secondes avant d'envoyer.", "warning");
       return;
     }
-// Anti-spam léger : honeypot + délai minimal 3s bkjebcjkenbkjlzcn
-    if (!subject) {
-      showAlert(alertEl, "Choisissez un objet de demande.", "danger");
-      return;
-    }
+
     if (!type) {
       showAlert(alertEl, "Sélectionnez un type de demande.", "danger");
+      return;
+    }
+    if (!subject) {
+      showAlert(alertEl, "Précisez l'objet de votre demande.", "danger");
       return;
     }
 

@@ -65,6 +65,22 @@
                   <label for="contactEmail" class="form-label fw-semibold">Email professionnel</label>
                   <input type="email" class="form-control form-control-lg" id="contactEmail" name="email" placeholder="adresse@compagnie.com" required>
                 </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="contactType" class="form-label fw-semibold">Type de demande</label>
+                    <select class="form-select form-select-lg" id="contactType" name="type" required>
+                      <option value="" selected disabled>Choisir...</option>
+                      <option value="Information">Information générale</option>
+                      <option value="Devis">Demande de devis</option>
+                      <option value="Urgence">Urgence opérationnelle</option>
+                      <option value="Partenariat">Partenariat</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="contactSubject" class="form-label fw-semibold">Objet</label>
+                    <input type="text" class="form-control form-control-lg" id="contactSubject" name="subject" placeholder="Ex: Avitaillement navire" required>
+                  </div>
+                </div>
                 <div class="mb-4">
                   <label for="contactMessage" class="form-label fw-semibold">Votre Message</label>
                   <textarea class="form-control form-control-lg" id="contactMessage" name="message" rows="5" placeholder="Détaillez vos besoins (avitaillement, soutage, logistique...)" required></textarea>
