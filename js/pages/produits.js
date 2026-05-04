@@ -38,9 +38,10 @@ export async function init() {
     // Si Supabase ne fonctionne pas, utiliser des produits locaux
     const localProducts = getLocalProducts();
     renderProducts(localProducts, grid);
-    if (status) {
-      showAlert(status, "Supabase non accessible - Mode démo activé", "warning");
-    }
+    // Message supprimé pour ne pas afficher l'alerte mode démo
+    // if (status) {
+    //   showAlert(status, "Supabase non accessible - Mode démo activé", "warning");
+    // }
   }
 }
 
