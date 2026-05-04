@@ -6,7 +6,7 @@
 import { qs, showAlert, formatPrice, escapeHtml, showToast } from "../utils/dom.js";
 import { fetchProducts, insertProduct, updateProduct, deleteProduct } from "../api/products.js";
 import { fetchMessages } from "../api/messages.js";
-import { currentSession, signIn, signOut, hasAdminRole } from "../api/auth.js";
+import { currentSession, signIn, signOut, hasAdminRole, login } from "../api/auth.js";
 import { ensureClient } from "../config/supabase.js";
 
 /* LES VARIABLES "CACHE" : On stocke les données ici pour éviter de les 
@@ -53,10 +53,18 @@ function bindLogin() {
     showAlert(loginAlert, "Connexion en cours…", "info");
     
     try {
-      const { data, error } = await signIn(email, password);
-      if (error) throw error;
-      await onAuthenticated(data.session.user);
-      showToast("Vous êtes connecté", "success");
+      // Utiliser la nouvelle fonction login avec vérification hardcoded
+      await login(email, password);
+      
+      // Si on arrive ici, c'est que la connexion a réussi et la redirection est en cours
+      // Pour les identifiants par défaut, la redirection est immédiate
+      // Pour Supabase, on attend la redirection automatique
+      if (email === 'admin@firstservice.com' && password === '1234') {
+        showToast("Connexion administrateur réussie", "success");
+      } else {
+        await onAuthenticated((await currentSession())?.user);
+        showToast("Vous êtes connecté", "success");
+      }
     } catch (err) {
       console.error(err);
       showAlert(loginAlert, "Email ou mot de passe incorrect.", "danger");

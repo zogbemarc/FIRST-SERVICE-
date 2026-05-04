@@ -68,28 +68,6 @@ La réalisation de ce site vitrine répond à trois objectifs fondamentaux :
 
 
 
-const login = async (email, password) => {
-  // Identifiants par défaut pour contourner le blocage serveur
-  if (email === 'admin@firstservice.com' && password === '1234') {
-    console.log("Accès administrateur autorisé (Mode local)");
-    window.location.href = 'admin.html';
-    return;
-  }
-
-  // Tentative normale via Supabase (si le quota le permet)
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password
-  });
-
-  if (error) {
-    alert("Erreur de connexion : " + error.message);
-  } else {
-    window.location.href = 'admin.html';
-  }
-};
-Modifie ma fonction de connexion pour ajouter une vérification par défaut (hardcoded). Si l'email est 'admin@firstservice.com' et le mot de passe est '1234', connecte l'utilisateur directement en le redirigeant vers 'admin.html' sans passer par Supabase. Si les identifiants ne correspondent pas à ceux par défaut, alors tente la connexion normale avec supabase.auth.signInWithPassword. Assure-toi de gérer la redirection après la connexion réussie."
-
 
 
 
