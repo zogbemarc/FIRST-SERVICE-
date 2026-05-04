@@ -10,16 +10,36 @@ export async function init() {
   if (status) status.classList.add("d-none");
 
   try {
+    // Essayer de charger depuis Supabase en premier
+    console.log("Tentative de chargement depuis Supabase...");
     const { data, error } = await fetchProducts();
-    if (error) throw error;
-    renderProducts(data || [], grid);
+    
+    if (error) {
+      console.error("Erreur Supabase:", error);
+      throw error;
+    }
+    
+    if (data && data.length > 0) {
+      console.log("Produits chargés depuis Supabase:", data);
+      renderProducts(data, grid);
+      if (status) {
+        showAlert(status, `${data.length} produit(s) chargé(s) depuis Supabase`, "success");
+      }
+    } else {
+      console.log("Aucun produit dans Supabase, utilisation des produits par défaut");
+      const defaultProducts = getLocalProducts();
+      renderProducts(defaultProducts, grid);
+      if (status) {
+        showAlert(status, "Affichage des produits par défaut (ajoutez des produits dans Supabase)", "info");
+      }
+    }
   } catch (err) {
-    console.error(err);
+    console.error("Erreur complète:", err);
     // Si Supabase ne fonctionne pas, utiliser des produits locaux
     const localProducts = getLocalProducts();
     renderProducts(localProducts, grid);
     if (status) {
-      showAlert(status, "Affichage des produits locaux (Mode démo)", "info");
+      showAlert(status, "Supabase non accessible - Mode démo activé", "warning");
     }
   }
 }

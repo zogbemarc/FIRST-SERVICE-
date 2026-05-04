@@ -7,7 +7,7 @@ import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 // URL corrigée : project ID = msnjheipxldinmxvvmew (deux "v" à la fin, un seul "x").
 export const SUPABASE_URL = "https://msnjheipxldinmxvvmew.supabase.co";
 // Clé publishable (recommandée côté navigateur)
-export const SUPABASE_ANON_KEY = "sb_publishable_olaM1LlSrPUDoCG2ruEnPw_dKvhOOGT";
+export const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zbmpoZWlweGxkaW5teHZ2bWV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQwMjA0NzAsImV4cCI6MjA0OTU5NjQ3MH0.6Y1X_VnCg5l0JdMqKuZQgJlX8nDjF5hQ7wR2fL3sT9Y";
 
 const urlFromWindow =
   typeof window !== "undefined" ? window.__SUPABASE_URL : undefined;
